@@ -4,9 +4,10 @@ import { prisma } from "@/lib/prisma";
 import Credentials from "next-auth/providers/credentials";
 import { SignInSchema } from "@/lib/zod";
 import { compareSync } from "bcrypt-ts";
+import { Adapter } from "next-auth/adapters";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  adapter: PrismaAdapter(prisma) as any, // Gunakan `as any` jika masih ada error typing
+  adapter: PrismaAdapter(prisma) as Adapter,
   session: { strategy: "jwt" },
   pages: {
     signIn: "/login",
@@ -60,14 +61,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
       return true;
     },
-    jwt({token, user}){
-      if(user) token.role = user.role;
+    jwt({ token, user }) {
+      if (user) token.role = user.role;
       return token;
     },
-    session({session, token}){
-      session.user.id = token.sub;
-      session.user.role = token.role;
+    session({ session, token }) {
+      session.user.id = token.sub as string;
+      session.user.role = token.role as string;
       return session;
-    }
+    },
   },
 });
+
