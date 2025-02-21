@@ -28,6 +28,7 @@ const FormLogin = () => {
         </label>
         <input
           type="email"
+          defaultValue="john@gmail.com"
           name="email"
           placeholder="john.doe@gmail.com"
           className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg w-full p-2.5"
@@ -47,6 +48,7 @@ const FormLogin = () => {
         </label>
         <input
           type="password"
+          defaultValue="jika12345"
           name="password"
           placeholder="*****************"
           className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg w-full p-2.5"
